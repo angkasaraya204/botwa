@@ -66,13 +66,13 @@ var handler = async (m, { text, usedPrefix, command }) => {
             let nhendlconv = nhendlhasil.result;
 
             const doc = new PDFDocument;
-            const stream = doc.pipe(fs.createWriteStream(`./media/downloads/output.pdf`));
+            const stream = doc.pipe(fs.createWriteStream(`./media/dwnlds/output.pdf`));
         
             let i = 0;
             for (let url of nhendlconv.image) {
                 let response = await fetch(url);
                 let buffer = await response.buffer();
-                fs.writeFileSync(`./media/downloads/image${i}.jpg`, buffer);
+                fs.writeFileSync(`./media/dwnlds/image${i}.jpg`, buffer);
                 
                 // Jika ini bukan gambar pertama, tambahkan halaman baru
                 if (i > 0) {
@@ -80,10 +80,10 @@ var handler = async (m, { text, usedPrefix, command }) => {
                 }
 
                 // Tambahkan gambar ke halaman dengan ukuran penuh
-                doc.image(`./media/downloads/image${i}.jpg`, 0, 0, { width: doc.page.width, height: doc.page.height });
+                doc.image(`./media/dwnlds/image${i}.jpg`, 0, 0, { width: doc.page.width, height: doc.page.height });
 
                 // Hapus gambar setelah ditambahkan ke PDF
-                fs.unlinkSync(`./media/downloads/image${i}.jpg`);
+                fs.unlinkSync(`./media/dwnlds/image${i}.jpg`);
                 i++;
             }
         
@@ -91,10 +91,10 @@ var handler = async (m, { text, usedPrefix, command }) => {
 
             stream.on('finish', function() {
                 // Hapus file PDF setelah selesai ditulis
-                fs.unlinkSync(`./media/downloads/output.pdf`);
+                fs.unlinkSync(`./media/dwnlds/output.pdf`);
             });
         
-            await conn.sendFile(m.chat, `./media/downloads/output.pdf`, `Images.pdf`, 'Nih', m);
+            await conn.sendFile(m.chat, `./media/dwnlds/output.pdf`, `Images.pdf`, 'Nih', m);
         } catch (error) {
             throw `Data Tidak Ditemukan! ${error.message}`
         }
