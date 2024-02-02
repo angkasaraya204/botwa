@@ -5,40 +5,40 @@ const fs = require('fs');
 const os = require('os');
 const express = require('express');
 const app = express();
-const keep_alive = require('./keep_alive') 
+// const keep_alive = require('./keep_alive') 
 
-// const port = process.env.PORT || 3000; // ex: 8000, 5000, 4444
+const port = process.env.PORT || 8080; // ex: 8000, 5000, 4444
 
-// console.log('\x1b[33m%s\x1b[0m', `🌐 Port ${port} is open`);
-// app.get('/', (req, res) => {
-//   res.setHeader('Content-Type', 'application/json');
-//   const data = {
-//     status: 'true',
-//     message: 'Bot Successfully Activated!',
-//     author: 'xKiwilx'
-//   };
-//   const result = {
-//     response: data
-//   };
-//   res.send(JSON.stringify(result, null, 2));
-// });
+console.log('\x1b[33m%s\x1b[0m', `🌐 Port ${port} is open`);
+app.get('/', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  const data = {
+    status: 'true',
+    message: 'Bot Successfully Activated!',
+    author: 'xKiwilx'
+  };
+  const result = {
+    response: data
+  };
+  res.send(JSON.stringify(result, null, 2));
+});
 
-// function listenOnPort(port) {
-//   app.listen(port, () => {
-//     console.log(`Server is running on port ${port}`);
-//   });
+function listenOnPort(port) {
+  app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+  });
 
-//   app.on('error', (err) => {
-//     if (err.code === 'EADDRINUSE') {
-//       console.log(`Port ${port} is already in use. Trying another port...`);
-//       listenOnPort(port + 1);
-//     } else {
-//       console.error(err);
-//     }
-//   });
-// }
+  app.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      console.log(`Port ${port} is already in use. Trying another port...`);
+      listenOnPort(port + 1);
+    } else {
+      console.error(err);
+    }
+  });
+}
 
-// listenOnPort(port);
+listenOnPort(port);
 
 let isRunning = false;
 
