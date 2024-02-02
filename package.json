@@ -11,8 +11,7 @@
     },
     "scripts": {
         "start": "node . --pairing --server --autocleartmp --autoread",
-        "test": "pm2 start index.js --env production",
-        "test2": "npm index.js"
+        "test": "pm2 start index.js --env production"
     },
     "keywords": [
         "whatsapp-bot-md",
