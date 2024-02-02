@@ -39,6 +39,7 @@ let tags = {
   'tools': 'MENU TOOLS',
   'anonymous': 'ANONYMOUS CHAT',
   'wibu': 'MENU WIBU',
+  'bypass': 'MENU BYPASS',
   '': 'NO CATEGORY',
 }
 const defaultMenu = {
