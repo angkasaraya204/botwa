@@ -1,0 +1,4 @@
+"scripts": {
+        "start": "node . --pairing --server --autocleartmp --autoread",
+        "test": "pm2 start index.js --env production"
+    },

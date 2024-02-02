@@ -9,10 +9,7 @@
         "src": "src",
         "plugins": "plugins"
     },
-    "scripts": {
-        "start": "node . --pairing --server --autocleartmp --autoread",
-        "test": "pm2 start index.js --env production"
-    },
+    
     "keywords": [
         "whatsapp-bot-md",
         "whatsapp-bot",
