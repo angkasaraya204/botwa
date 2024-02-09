@@ -16,7 +16,7 @@ global.autobio = false //set false untuk mematikan autobio
 global.maxwarn = '2' // Peringatan maksimum
 
 //INI WAJIB DI ISI!//
-global.btc = 'ganskiwilkey' 
+global.btc = 'angkasakey' 
 global.lol = 'angkasakey' 
 global.zoner = 'angkasakey'
 //Daftar terlebih dahulu https://api.botcahx.eu.org

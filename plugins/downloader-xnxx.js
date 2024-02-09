@@ -5,7 +5,7 @@ var handler = async (m, {
     if (command == 'xnxxdl') {
         if (!text) throw 'Masukkan Query Link!'
         try {
-            let anu = await fetch(`https://api.botcahx.eu.org/api/download/xnxxdl?url=${text}&apikey=${btc}`)
+            let anu = await fetch(`https://api.botcahx.eu.org/api/download/xnxxdl?url=${encodeURIComponent(text)}&apikey=${btc}`)
             let hasil = await anu.json()
             await conn.reply(m.chat, wait, m)
             await conn.sendMessage(m.chat, { video: { url: hasil.result.url }, fileName: 'xnxx.mp4', mimetype: 'video/mp4' }, { quoted: m })
@@ -20,7 +20,7 @@ var handler = async (m, {
         }
         try {
             const search = await fetch(
-                `https://api.botcahx.eu.org/api/search/xnxx?query=${text}&apikey=${btc}`
+                `https://api.botcahx.eu.org/api/search/xnxx?query=${encodeURIComponent(text)}&apikey=${btc}`
             );
             const hasil = await search.json();
 

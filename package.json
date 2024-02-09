@@ -9,7 +9,9 @@
         "src": "src",
         "plugins": "plugins"
     },
-    
+    "scripts": {
+        "start": "node index.js --autocleartmp --autoread"
+    },
     "keywords": [
         "whatsapp-bot-md",
         "whatsapp-bot",
