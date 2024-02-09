@@ -19,10 +19,10 @@ function connect(conn, PORT) {
         res.end(await qrcode.toBuffer(_qr))
     })
 
-    // let server = app.listen(8080, () => {
-    //     console.log('App listened on port 8080')
-    //     if (opts['keepalive']) keepAlive()
-    // })
+    let server = app.listen(8080, () => {
+      console.log('App listened on port 8080')
+      if (opts['keepalive']) keepAlive()
+    })
     let io = SocketIO(server)
     io.on('connection', socket => {
         let { unpipeEmit } = pipeEmit(conn, socket, 'conn-')
@@ -43,12 +43,13 @@ function pipeEmit(event, event2, prefix = '') {
     }
 }
 
-// function keepAlive() {
-//     const url = `https://${process.env.REPL_SLUG}.${process.env.REPL_OWNER}.repl.co`
-//     if (/(\/\/|\.)undefined\./.test(url)) return
-//     setInterval(() => {
-//         fetch(url).catch(console.error)
-//     }, 5 * 1000 * 60)
-// }
+function keepAlive() {
+  const url = `https://${process.env.REPL_SLUG}.${process.env.REPL_OWNER}.repl.co`
+  if (/(\/\/|\.)undefined\./.test(url)) return
+  setInterval(()=> {
+    fetch(url).catch(console.error)
+  }, 5 * 1000 * 60)
+}
+
 
 module.exports = connect

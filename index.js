@@ -5,40 +5,54 @@ const fs = require('fs');
 const os = require('os');
 const express = require('express');
 const app = express();
-const keep_alive = require('./keep_alive.js')
 
-// const port = process.env.PORT || 8080; // ex: 8000, 5000, 4444
+// Express.js 
+const ports = [4000, 3000, 5000, 8000];
+let availablePortIndex = 0;
 
-// console.log('\x1b[33m%s\x1b[0m', `🌐 Port ${port} is open`);
-// app.get('/', (req, res) => {
-//   res.setHeader('Content-Type', 'application/json');
-//   const data = {
-//     status: 'true',
-//     message: 'Bot Successfully Activated!',
-//     author: 'xKiwilx'
-//   };
-//   const result = {
-//     response: data
-//   };
-//   res.send(JSON.stringify(result, null, 2));
-// });
+function checkPort(port) {
+  return new Promise((resolve, reject) => {
+    const server = app.listen(port, () => {
+      server.close();
+      resolve(true);
+    });
+    server.on('error', reject);
+  });
+}
 
-// function listenOnPort(port) {
-//   app.listen(port, () => {
-//     console.log(`Server is running on port ${port}`);
-//   });
+async function startServer() {
+  const port = ports[availablePortIndex];
+  const isPortAvailable = await checkPort(port);
 
-//   app.on('error', (err) => {
-//     if (err.code === 'EADDRINUSE') {
-//       console.log(`Port ${port} is already in use. Trying another port...`);
-//       listenOnPort(port + 1);
-//     } else {
-//       console.error(err);
-//     }
-//   });
-// }
+  if (isPortAvailable) {
+    console.log('\x1b[33m%s\x1b[0m', `🌐 Port ${port} is open`);
+    app.get('/', (req, res) => {
+      res.setHeader('Content-Type', 'application/json');
+      const data = {
+        status: 'true',
+        message: 'Bot Successfully Activated!',
+        author: 'xKiwilx'
+      };
+      const result = {
+        response: data
+      };
+      res.send(JSON.stringify(result, null, 2));
+    });
+  } else {
+    console.log(`Port ${port} is already in use. Trying another port...`);
+    availablePortIndex++;
 
-// listenOnPort(port);
+    if (availablePortIndex >= ports.length) {
+      console.log('No more available ports. Exiting...');
+      process.exit(1);
+    } else {
+      ports[availablePortIndex] = parseInt(port) + 1;
+      startServer();
+    }
+  }
+}
+
+startServer();
 
 let isRunning = false;
 
@@ -74,7 +88,7 @@ function start(file) {
 
     fs.watchFile(args[0], () => {
       fs.unwatchFile(args[0]);
-      console.error('\x1b[31m%s\x1b[0m', `File ${args[0]} has been modified. Script will restart...`);
+	  console.error('\x1b[31m%s\x1b[0m', `File ${args[0]} has been modified. Script will restart...`);
       start("main.js");
     });
   });
@@ -110,15 +124,15 @@ function start(file) {
   console.log(`💽 \x1b[33mFree RAM: ${freeRamInGB.toFixed(2)} GB\x1b[0m`);
   console.log('\x1b[33m%s\x1b[0m', `📃 Script by BOTCAHX`);
 
-  setInterval(() => { }, 1000);
+  setInterval(() => {}, 1000);
 }
 
 start("main.js");
 
 const tmpDir = './tmp';
-if (!fs.existsSync(tmpDir)) {
-  fs.mkdirSync(tmpDir);
-  console.log('\x1b[33m%s\x1b[0m', `📁 Created directory ${tmpDir}`);
+  if (!fs.existsSync(tmpDir)) {
+    fs.mkdirSync(tmpDir);
+    console.log('\x1b[33m%s\x1b[0m', `📁 Created directory ${tmpDir}`);
 }
 
 process.on('unhandledRejection', (reason) => {
