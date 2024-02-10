@@ -19,6 +19,7 @@ global.maxwarn = '2' // Peringatan maksimum
 global.btc = 'angkasakey' 
 global.lol = 'angkasakey' 
 global.zoner = 'angkasakey'
+global.resbot = '096457035424d8fa3aca2e156435eae4'
 //Daftar terlebih dahulu https://api.botcahx.eu.org
 
 //INI OPTIONAL BOLEH DI ISI BOLEH JUGA ENGGA//
@@ -30,11 +31,13 @@ global.APIs = {
   lol: 'https://api.lolhuman.xyz',
   zoner: 'https://api.zonerweb.biz.id',
   akuari: 'https://api.akuari.my.id',
+  resbot: 'https://api2.autoresbot.com',
 }
 global.APIKeys = { 
   'https://api.botcahx.eu.org': 'ganskiwilkey',
   'https://api.lolhuman.xyz': 'angkasakey',
   'https://api.zonerweb.biz.id': 'angkasakey',
+  'https://api2.autoresbot.com': '096457035424d8fa3aca2e156435eae4',
 }
 
 let fs = require('fs')

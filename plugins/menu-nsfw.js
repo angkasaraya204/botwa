@@ -99,7 +99,7 @@ let handler = async (m, { conn, command }) => {
       await conn.sendFile(m.chat, res, 'nsfw.jpg', '', m);
     }
     if (command == 'cosplay') {
-      const res = `https://api.zonerweb.biz.id/api/image/cosplay?apikey=${zoner}`;
+      const res = `https://api2.autoresbot.com/randomimage/cosplay?apikey=${resbot}`;
       await conn.sendFile(m.chat, res, 'nsfw.jpg', '', m);
     }
   } catch (err) {

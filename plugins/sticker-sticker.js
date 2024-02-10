@@ -18,12 +18,6 @@ if (/image/.test(mime)) {
   throw `Kirim Gambar/Video Dengan Caption ${usedPrefix + command}\nDurasi Video 1-10 Detik`
   }
     }
-handler.help = ['sticker']
-handler.tags = ['sticker']
+handler.help = handler.tags = ['sticker']
 handler.command = /^(stiker|s|sticker)$/i
-handler.limit = true
 module.exports = handler
-
-// const isUrl = (text) => {
-//     return text.match(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)(jpe?g|gif|png|mp4)/, 'gi'))
-// }
