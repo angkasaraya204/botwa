@@ -1,65 +1,25 @@
-let util = require('util')
-let path = require('path')
-let { spawn } = require('child_process')
+let fetch = require("node-fetch");
+let handler = async (m, { conn, text }) => {
+    if (!text) throw "Masukkan teksnya!";
+    await conn.reply(m.chat, wait, m);
+    await conn.sendMessage(m.chat, { react: { text: `⏱️`, key: m.key } });
+    try {
+        let buff =
+            `https://api.lolhuman.xyz/api/nulis?apikey=${lol}&text=` +
+            {
+                text,
+                nama: conn.getName(m.sender),
+                kelas: " ",
+            };
+        await conn.sendFile(m.chat, buff, "nulis.jpg", "", m);
+    } catch (e) {
+        throw `Data Tidak Ditemukan! ${e.message}`;
+    }
+};
+handler.help = new Array(6)
+    .fill("magernulis")
+    .map((v, i) => v + (i + 1) + " <teks>");
+handler.tags = ["tools"];
+handler.command = /^nulis[1-6]?$/i;
 
-let fontPath = 'src/font/Zahraaa.ttf'
-let handler = async (m, { conn, args }) => {
-    if (!global.support.convert &&
-        !global.support.magick &&
-        !global.support.gm) return handler.disabled = true // Disable if doesnt support
-    let inputPath = 'src/kertas/magernulis1.jpg'
-    let d = new Date
-    let tgl = d.toLocaleDateString('id-Id')
-    let hari = d.toLocaleDateString('id-Id', { weekday: 'long' })
-    let teks = args.join` `
-    let bufs = []
-    const [_spawnprocess, ..._spawnargs] = [...(global.support.gm ? ['gm'] : global.support.magick ? ['magick'] : []),
-        'convert',
-        inputPath,
-        '-font',
-        fontPath,
-        '-size',
-        '1024x784',
-        '-pointsize',
-        '20',
-        '-interline-spacing',
-        '1',
-        '-annotate',
-        '+806+78',
-        hari,
-        '-font',
-        fontPath,
-        '-size',
-        '1024x784',
-        '-pointsize',
-        '18',
-        '-interline-spacing',
-        '1',
-        '-annotate',
-        '+806+102',
-        tgl,
-        '-font',
-        fontPath,
-        '-size',
-        '1024x784',
-        '-pointsize',
-        '20',
-        '-interline-spacing',
-        '-7.5',
-        '-annotate',
-        '+344+142',
-        teks,
-        'jpg:-'
-    ]
-    spawn(_spawnprocess, _spawnargs)
-        .on('error', e => conn.reply(m.chat, util.format(e), m))
-        .on('close', () => {
-            conn.sendFile(m.chat, Buffer.concat(bufs), 'nulis.jpg', 'Hati² ketahuan', m)
-        })
-        .stdout.on('data', chunk => bufs.push(chunk))
-}
-handler.help = ['n'].map(v => v + 'ulis <teks>')
-handler.tags = ['tools']
-handler.command = /^nulis$/i
-
-module.exports = handler
+module.exports = handler;

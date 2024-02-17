@@ -108,7 +108,7 @@ var handler = async (m, { text, usedPrefix, command }) => {
 
             stream.on("finish", function () {
                 // Hapus file PDF setelah selesai ditulis
-                fs.unlinkSync(`./media/download/output.pdf`);
+                fs.unlinkSync(`./media/download/${nhendlconv.title_native}.pdf`);
             });
 
             await conn.sendFile(

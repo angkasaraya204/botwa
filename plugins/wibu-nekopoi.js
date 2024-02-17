@@ -1,15 +1,18 @@
 var fetch = require("node-fetch");
+let { getVideo } = require("../lib/nekopoi");
 
 var handler = async (m, { text, usedPrefix, command }) => {
-    if (command == 'nekosearch') {
+    if (command == "nekosearch") {
         if (!text) {
             throw `Contoh:\n${usedPrefix + command} isekai.\nMenampilkan 10 Data!`;
         }
-        await conn.reply(m.chat, wait, m)
+        await conn.reply(m.chat, wait, m);
         await conn.sendMessage(m.chat, { react: { text: `⏱️`, key: m.key } });
         try {
             let detailneko = await fetch(
-                `https://api.lolhuman.xyz/api/nekopoisearch?apikey=${lol}&query=${encodeURIComponent(text)}`
+                `https://api.lolhuman.xyz/api/nekopoisearch?apikey=${lol}&query=${encodeURIComponent(
+                    text,
+                )}`,
             );
             let hasilneko = await detailneko.json();
 
@@ -17,25 +20,33 @@ var handler = async (m, { text, usedPrefix, command }) => {
             let noneko = 1;
 
             for (let ipneko of hasilneko.result) {
-                teksneko += `📑 *No* : ${noneko++}\n*Judul* : ${ipneko.title}\n*Link* : ${ipneko.link}\n\n─────────────────\n\n`;
+                teksneko += `📑 *No* : ${noneko++}\n*Judul* : ${ipneko.title
+                    }\n*Link* : ${ipneko.link}\n\n─────────────────\n\n`;
             }
-            
-            await conn.sendMessage(m.chat, { image: { url: hasilneko.result[0].thumbnail}, caption: teksneko }, { quoted: m });
+
+            await conn.sendMessage(
+                m.chat,
+                { image: { url: hasilneko.result[0].thumbnail }, caption: teksneko },
+                { quoted: m },
+            );
         } catch (e) {
-            throw `Data Tidak Ditemukan!`
+            throw `Data Tidak Ditemukan!`;
         }
     }
 
-    if (command == 'nekodetail') {
+    if (command == "nekodetail") {
         if (!text) {
-            throw `Contoh:\n${usedPrefix + command} https://nekopoi.care/isekai-harem-monogatari-episode-4-subtitle-indonesia/.\nAmbil yang per-episodenya.`;
+            throw `Contoh:\n${usedPrefix + command
+            } https://nekopoi.care/isekai-harem-monogatari-episode-4-subtitle-indonesia/.\nAmbil yang per-episodenya.`;
         }
-        await conn.reply(m.chat, wait, m)
+        await conn.reply(m.chat, wait, m);
         await conn.sendMessage(m.chat, { react: { text: `⏱️`, key: m.key } });
 
         try {
             let detailneko2 = await fetch(
-                `https://api.lolhuman.xyz/api/nekopoi?apikey=${lol}&url=${encodeURIComponent(text)}`
+                `https://api.lolhuman.xyz/api/nekopoi?apikey=${lol}&url=${encodeURIComponent(
+                    text,
+                )}`,
             );
             let hasilneko2 = await detailneko2.json();
             let convdetail = hasilneko2.result;
@@ -48,17 +59,40 @@ var handler = async (m, { text, usedPrefix, command }) => {
                 for (let source in convdetail.link[quality]) {
                     downloadList += `*${source}* : ${convdetail.link[quality][source]}\n`;
                 }
-                downloadList += '\n';
+                downloadList += "\n";
             }
 
-            await conn.sendMessage(m.chat, { image: { url: convdetail.thumbnail }, caption: detailnekos + downloadList }, { quoted: m });
+            await conn.sendMessage(
+                m.chat,
+                {
+                    image: { url: convdetail.thumbnail },
+                    caption: detailnekos + downloadList,
+                },
+                { quoted: m },
+            );
         } catch (e) {
-            throw `Data Tidak Ditemukan!`
+            throw `Data Tidak Ditemukan!`;
+        }
+    }
+
+    if (command == "nekodl") {
+        await conn.reply(m.chat, wait, m);
+        await conn.sendMessage(m.chat, { react: { text: `⏱️`, key: m.key } });
+        try {
+            if (!text) throw "Tidak Ada Url";
+            let { title, links } = await getVideo(text);
+            if (links.length == 0) throw "Video Tidak Ditemukan!";
+            teksnya = `*[NEKOPOI DOWNLOADER]*\n\nTitle : ${title}\n\n${links.join(
+                "\n",
+            )}`;
+            m.reply(teksnya.trim());
+        } catch (e) {
+            throw `Data Tidak Ditemukan!`;
         }
     }
 };
 
-handler.command = handler.help = ['nekosearch', 'nekodetail'];
-handler.tags = ['wibu'];
+handler.command = handler.help = ["nekosearch", "nekodetail", "nekodl"];
+handler.tags = ["wibu"];
 
 module.exports = handler;

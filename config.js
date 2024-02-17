@@ -22,10 +22,6 @@ global.zoner = 'angkasakey'
 global.resbot = '096457035424d8fa3aca2e156435eae4'
 //Daftar terlebih dahulu https://api.botcahx.eu.org
 
-//INI OPTIONAL BOLEH DI ISI BOLEH JUGA ENGGA//
-global.lann = 'angkasakey'
-//Daftar https://api.betabotz.eu.org 
-
 global.APIs = {   
   btc: 'https://api.botcahx.eu.org',
   lol: 'https://api.lolhuman.xyz',
@@ -33,6 +29,7 @@ global.APIs = {
   akuari: 'https://api.akuari.my.id',
   resbot: 'https://api2.autoresbot.com',
 }
+
 global.APIKeys = { 
   'https://api.botcahx.eu.org': 'ganskiwilkey',
   'https://api.lolhuman.xyz': 'angkasakey',
