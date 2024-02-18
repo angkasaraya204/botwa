@@ -2482,7 +2482,9 @@
       "delete": true,
       "antiLink": false,
       "viewonce": false,
-      "antiToxic": true
+      "antiToxic": true,
+      "descUpdate": true,
+      "antiBadword": true
     },
     "6285718796820@s.whatsapp.net": {
       "isBanned": false,
@@ -2495,7 +2497,16 @@
       "delete": true,
       "antiLink": false,
       "viewonce": false,
-      "antiToxic": true
+      "antiToxic": true,
+      "descUpdate": true,
+      "antiBadword": true,
+      "anon": true,
+      "anticall": true,
+      "antispam": true,
+      "antitroli": true,
+      "backup": false,
+      "backupDB": 0,
+      "status": 0
     },
     "120363191613108041@g.us": {
       "isBanned": false,
@@ -2535,6 +2546,41 @@
       "antiLink": false,
       "viewonce": false,
       "antiToxic": true
+    },
+    "120363046781721859@g.us": {
+      "isBanned": false,
+      "welcome": true,
+      "detect": false,
+      "sWelcome": "",
+      "sBye": "",
+      "sPromote": "",
+      "sDemote": "",
+      "descUpdate": true,
+      "delete": true,
+      "antiLink": false,
+      "viewonce": false,
+      "antiBadword": true
+    },
+    "120363126477764852@g.us": {
+      "isBanned": false,
+      "welcome": true,
+      "detect": false,
+      "sWelcome": "",
+      "sBye": "",
+      "sPromote": "",
+      "sDemote": "",
+      "descUpdate": true,
+      "delete": true,
+      "antiLink": false,
+      "viewonce": false,
+      "antiBadword": true,
+      "anon": true,
+      "anticall": true,
+      "antispam": true,
+      "antitroli": true,
+      "backup": false,
+      "backupDB": 0,
+      "status": 0
     }
   },
   "stats": {
@@ -2582,5 +2628,29 @@
     }
   },
   "msgs": {},
-  "sticker": {}
+  "sticker": {},
+  "settings": {
+    "anon": true,
+    "anticall": true,
+    "antispam": true,
+    "antitroli": true,
+    "backup": false,
+    "backupDB": 0,
+    "groupOnly": false,
+    "jadibot": false,
+    "nsfw": true,
+    "status": 0,
+    "6285718796820@s.whatsapp.net": {
+      "anon": true,
+      "anticall": true,
+      "antispam": true,
+      "antitroli": true,
+      "backup": false,
+      "backupDB": 0,
+      "groupOnly": false,
+      "jadibot": false,
+      "nsfw": true,
+      "status": 0
+    }
+  }
 }

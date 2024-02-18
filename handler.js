@@ -34,7 +34,6 @@ module.exports = {
                     if (!('descUpdate' in chat)) chat.descUpdate = true
                     if (!('delete' in chat)) chat.delete = true
                     if (!('antiLink' in chat)) chat.antiLink = true
-                    if (!('viewonce' in chat)) chat.viewonce = false
                     if (!('antiBadword' in chat)) chat.antiBadword = true
                 } else global.db.data.chats[m.chat] = {
                     isBanned: false,
@@ -47,33 +46,26 @@ module.exports = {
                     descUpdate: true,
                     delete: true,
                     antiLink: false,
-                    viewonce: false,
                     antiBadword: true,
                 }
 
-                let settings = global.db.data.settings
-                if (typeof settings !== 'object') global.db.data.settings = {}
+                let settings = global.db.data.settings[m.chat]
+                if (typeof settings !== 'object') global.db.data.settings[m.chat] = {}
                 if (settings) {
-                    if (!'anon' in settings) settings.anon = true
-                    if (!'anticall' in settings) settings.anticall = true
-                    if (!'antispam' in settings) settings.antispam = true
-                    if (!'antitroli' in settings) settings.antitroli = true
-                    if (!'backup' in settings) settings.backup = false
+                    if (!('anon' in settings)) settings.anon = true
+                    if (!('anticall' in settings)) settings.anticall = true
+                    if (!('antispam' in settings)) settings.antispam = true
+                    if (!('antitroli' in settings)) settings.antitroli = true
+                    if (!('backup' in settings)) settings.backup = false
                     if (!isNumber(settings.backupDB)) settings.backupDB = 0
-                    if (!'groupOnly' in settings) settings.groupOnly = false
-                    if (!'jadibot' in settings) settings.groupOnly = false
-                    if (!'nsfw' in settings) settings.nsfw = true
                     if (!isNumber(settings.status)) settings.status = 0
-                } else global.db.data.settings = {
+                } else global.db.data.settings[m.chat] = {
                     anon: true,
                     anticall: true,
                     antispam: true,
                     antitroli: true,
                     backup: false,
                     backupDB: 0,
-                    groupOnly: false,
-                    jadibot: false,
-                    nsfw: true,
                     status: 0,
                 }
             } catch (e) {
@@ -113,7 +105,6 @@ module.exports = {
             let isROwner = [global.conn.user.jid, ...global.owner].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
             let isOwner = isROwner || m.fromMe
             let isMods = isOwner || global.mods.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
-            let isPrems = isROwner || global.prems.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
             let groupMetadata = (m.isGroup ? (conn.chats[m.chat] || {}).metadata : {}) || {}
             let participants = (m.isGroup ? groupMetadata.participants : []) || []
             let user = (m.isGroup ? participants.find(u => conn.decodeJid(u.id) === m.sender) : {}) || {} // User Data
@@ -156,7 +147,6 @@ module.exports = {
                     isOwner,
                     isAdmin,
                     isBotAdmin,
-                    isPrems,
                     chatUpdate,
                     // isBlocked,
                 })) continue
@@ -204,10 +194,6 @@ module.exports = {
                         fail('mods', m, this)
                         continue
                     }
-                    if (plugin.premium && !isPrems) { // Premium
-                        fail('premium', m, this)
-                        continue
-                    }
                     if (plugin.group && !m.isGroup) { // Group Only
                         fail('group', m, this)
                         continue
@@ -227,10 +213,6 @@ module.exports = {
                         continue
                     }
                     m.isCommand = true
-                    if (!isPrems && plugin.limit && global.db.data.users[m.sender].limit < plugin.limit * 1) {
-                        this.reply(m.chat, `Limit anda habis, silahkan beli melalui *${usedPrefix}buy*`, m)
-                        continue // Limit habis
-                    }
                     let extra = {
                         match,
                         usedPrefix,
@@ -248,13 +230,11 @@ module.exports = {
                         isOwner,
                         isAdmin,
                         isBotAdmin,
-                        isPrems,
                         chatUpdate,
                         // isBlocked,
                     }
                     try {
                         await plugin.call(this, m, extra)
-                        if (!isPrems) m.limit = m.limit || plugin.limit || false
                     } catch (e) {
                         // Error occured
                         m.error = e
@@ -328,7 +308,6 @@ module.exports = {
                                         title: action === 'add' ? 'Selamat Datang' : 'Selamat tinggal',
                                         body: global.wm,
                                         thumbnailUrl: pp,
-                                        // sourceUrl: 'https://api.botcahx.eu.org',
                                         mediaType: 1,
                                         renderLargerThumbnail: true
                                     }

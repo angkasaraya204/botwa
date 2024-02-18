@@ -1,6 +1,7 @@
 let handler = m => m
 
 handler.all = async function (m) {
+    // if (!db.data.settings[this.user.jid].antispam) return // antispam aktif?
     if (m.isBaileys && m.fromMe) return
     if (!m.message) return
     if (!m.isCommand) return

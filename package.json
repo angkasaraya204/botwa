@@ -10,7 +10,7 @@
         "plugins": "plugins"
     },
     "scripts": {
-        "start": "node index.js --autocleartmp --autoread"
+        "start": "node index.js --autocleartmp --autoread --pairing"
     },
     "keywords": [
         "whatsapp-bot-md",

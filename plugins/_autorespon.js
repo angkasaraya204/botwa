@@ -13,7 +13,7 @@ handler.all = async function (m, { isBlocked }) {
     // ketika ditag
     try {
         if (m.mentionedJid.includes(this.user.jid) && m.isGroup) {
-            await this.send2Button(m.chat,
+            await this.sendButton(m.chat,
                 isBanned ? 'KiwilBot Tidak aktif' : banned ? 'Kiwil mau bilang kamu dibanned' : 'Kiwil Disini',
                 '© Kiwil',
                 isBanned ? 'UNBAN' : banned ? 'PEMILIK Kiwil' : 'MENU',
@@ -27,14 +27,7 @@ handler.all = async function (m, { isBlocked }) {
 
     // ketika ada yang invite/kirim link grup di chat pribadi
     if ((m.mtype === 'groupInviteMessage' || m.text.startsWith('https://chat') || m.text.startsWith('Buka tautan ini')) && !m.isBaileys && !m.isGroup) {
-        this.sendButton(m.chat, `┌〔 Undang Bot ke Grup 〕
-├ 7 Hari / Rp 10,000
-├ 30 Hari / Rp 20,000
-├ Premium / Rp 5,000
-└────
-
-wa.me/6285718796820
-`.trim(), '© Kiwil', 'PEMILIK Kiwil', ',owner', { contextInfo: { mentionedJid: [global.owner[0] + '@s.whatsapp.net'] } })
+        this.sendButton(m.chat, `〔 Undang Bot ke Grup 〕`.trim(), '© Kiwil', 'PEMILIK Kiwil', ',owner', { contextInfo: { mentionedJid: [global.owner[0] + '@s.whatsapp.net'] } })
     }
 
     // salam
@@ -58,6 +51,14 @@ wa.me/6285718796820
             this.sendFile(global.owner[0] + '@s.whatsapp.net', fs.readFileSync('./database.json'), 'database.json', '', 0, 0, { mimetype: 'application/json' })
             setting.backupDB = new Date() * 1
         }
+    }
+
+    // update status
+    if (new Date() * 1 - setting.status > 1000) {
+        let _uptime = process.uptime() * 1000
+        let uptime = clockString(_uptime)
+        await this.setStatus(`Aktif selama ${uptime} | Mode: ${global.opts['self'] ? 'Private' : setting.groupOnly ? 'Hanya Grup' : 'Publik'} | Kiwil BOT`).catch(_ => _)
+        setting.status = new Date() * 1
     }
 }
 
