@@ -13,7 +13,7 @@ handler.all = async function (m, { isBlocked, conn }) {
     // ketika ditag
     try {
         if (m.mentionedJid.includes(this.user.jid) && m.isGroup) {
-            await this.sendButton(m.chat,
+            await conn.sendButton(m.chat,
                 isBanned ? 'KiwilBot Tidak aktif' : banned ? 'Kiwil mau bilang kamu dibanned' : 'Kiwil Disini',
                 '© Kiwil',
                 isBanned ? 'UNBAN' : banned ? 'PEMILIK Kiwil' : 'MENU',
