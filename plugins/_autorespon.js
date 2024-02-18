@@ -1,7 +1,7 @@
 let fs = require('fs')
 let handler = m => m
 
-handler.all = async function (m, { isBlocked }) {
+handler.all = async function (m, { isBlocked, conn }) {
 
     if (isBlocked) return
     if (m.isBaileys) return
@@ -27,7 +27,7 @@ handler.all = async function (m, { isBlocked }) {
 
     // ketika ada yang invite/kirim link grup di chat pribadi
     if ((m.mtype === 'groupInviteMessage' || m.text.startsWith('https://chat') || m.text.startsWith('Buka tautan ini')) && !m.isBaileys && !m.isGroup) {
-        this.sendButton(m.chat, `〔 Undang Bot ke Grup 〕`.trim(), '© Kiwil', 'PEMILIK Kiwil', ',owner', { contextInfo: { mentionedJid: [global.owner[0] + '@s.whatsapp.net'] } })
+        await conn.sendButton(m.chat, `〔 Undang Bot ke Grup 〕`.trim(), '© Kiwil', 'PEMILIK Kiwil', ',owner', { contextInfo: { mentionedJid: [global.owner[0] + '@s.whatsapp.net'] } })
     }
 
     // salam
@@ -57,13 +57,9 @@ handler.all = async function (m, { isBlocked }) {
     if (new Date() * 1 - setting.status > 1000) {
         let _uptime = process.uptime() * 1000
         let uptime = clockString(_uptime)
-        try {
-            await this.setStatus(`Aktif selama ${uptime} | Mode: ${global.opts['self'] ? 'Private' : setting.groupOnly ? 'Hanya Grup' : 'Publik'} | Kiwil BOT`).catch(_ => _)
-            setting.status = new Date() * 1
-        } catch (error) {
-            console.error("Error: ", error);
-        }
-}
+        await conn.setStatus(`Aktif selama ${uptime} | Mode: ${global.opts['self'] ? 'Private' : setting.groupOnly ? 'Hanya Grup' : 'Publik'} | Kiwil BOT`).catch(_ => _)
+        setting.status = new Date() * 1
+    }
 }
 
 module.exports = handler

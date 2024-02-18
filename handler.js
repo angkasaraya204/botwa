@@ -58,6 +58,8 @@ module.exports = {
                     if (!('antitroli' in settings)) settings.antitroli = true
                     if (!('backup' in settings)) settings.backup = false
                     if (!isNumber(settings.backupDB)) settings.backupDB = 0
+                    if (!'groupOnly' in settings) settings.groupOnly = false
+                    if (!'jadibot' in settings) settings.groupOnly = false
                     if (!isNumber(settings.status)) settings.status = 0
                 } else global.db.data.settings[m.chat] = {
                     anon: true,
@@ -66,6 +68,8 @@ module.exports = {
                     antitroli: true,
                     backup: false,
                     backupDB: 0,
+                    groupOnly: false,
+                    jadibot: false,
                     status: 0,
                 }
             } catch (e) {
