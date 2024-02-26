@@ -6,13 +6,13 @@ global.numberowner = 'isi no hp'
 global.mail = '' 
 global.gc = ''
 global.instagram = ''
-global.wm = ''
+global.wm = 'Kiwil'
 global.wait = '_*Tunggu sedang di proses...*_'
 global.eror = '_*Server Error*_'
 global.stiker_wait = '*⫹⫺ Stiker sedang dibuat...*'
-global.packname = 'Made With'
+global.packname = 'Dibuat Oleh'
 global.author = 'Bot WhatsApp'
-global.autobio = false //set false untuk mematikan autobio
+global.autobio = true //set false untuk mematikan autobio
 global.maxwarn = '2' // Peringatan maksimum
 
 //INI WAJIB DI ISI!//
