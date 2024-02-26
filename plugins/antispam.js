@@ -22,7 +22,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 	}
 }
 handler.help = ['antispam *on/off*']
-handler.tags = ['group', 'admin']
+handler.tags = ['group']
 handler.command = /^(antispam)$/i
 handler.group = true
 handler.admin = true

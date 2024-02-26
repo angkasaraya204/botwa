@@ -16,10 +16,8 @@ let handler = async (m, { conn, text }) => {
         throw `Data Tidak Ditemukan! ${e.message}`;
     }
 };
-handler.help = new Array(6)
-    .fill("magernulis")
-    .map((v, i) => v + (i + 1) + " <teks>");
-handler.tags = ["tools"];
-handler.command = /^nulis[1-6]?$/i;
+handler.help = ['n'].map(v => v + 'ulis <teks>')
+handler.tags = ['tools']
+handler.command = /^nulis$/i
 
 module.exports = handler;
