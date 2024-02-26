@@ -49,8 +49,8 @@ module.exports = {
                     antiBadword: true,
                 }
 
-                let settings = global.db.data.settings[m.chat]
-                if (typeof settings !== 'object') global.db.data.settings[m.chat] = {}
+                let settings = global.db.data.settings
+                if (typeof settings !== 'object') global.db.data.settings = {}
                 if (settings) {
                     if (!('anon' in settings)) settings.anon = true
                     if (!('anticall' in settings)) settings.anticall = true

@@ -10,7 +10,7 @@
         "plugins": "plugins"
     },
     "scripts": {
-        "start": "node index.js --autocleartmp --autoread --pairing"
+        "start": "node index.js --autocleartmp --autorea"
     },
     "keywords": [
         "whatsapp-bot",

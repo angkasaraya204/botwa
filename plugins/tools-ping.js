@@ -1,6 +1,6 @@
 var { totalmem,
-  freemem
-} = require('os')
+freemem
+ } = require('os')
 var os = require("os");
 var util = require("util");
 var osu = require("node-os-utils");
@@ -12,8 +12,8 @@ var format = sizeFormatter({
   keepTrailingZeroes: false,
   render: (literal, symbol) => `${literal} ${symbol}B`,
 })
-var handler = async (m, {
-  conn
+var handler = async (m, { 
+conn 
 }) => {
   const chats = Object.entries(conn.chats).filter(([id, data]) => id && data.isChats)
   const groupsIn = chats.filter(([id]) => id.endsWith('@g.us')) //groups.filter(v => !v.read_only)
@@ -46,40 +46,40 @@ var handler = async (m, {
     }
   );
   var _muptime
-  if (process.send) {
-    process.send('uptime')
-    _muptime = await new Promise(resolve => {
-      process.once('message', resolve)
-      setTimeout(resolve, 1000)
-    }) * 1000
-  }
-  var muptime = clockString(_muptime)
+    if (process.send) {
+      process.send('uptime')
+      _muptime = await new Promise(resolve => {
+        process.once('message', resolve)
+        setTimeout(resolve, 1000)
+      }) * 1000
+    }
+   var muptime = clockString(_muptime)
   var old = performance.now();
   var neww = performance.now();
   var speed = neww - old;
   var cpux = osu.cpu
-  var cpuCore = cpux.count()
-  var drive = osu.drive
-  var mem = osu.mem
-  var netstat = osu.netstat
-  var HostN = osu.os.hostname()
-  var OS = osu.os.platform()
-  var cpuModel = cpux.model()
-
-  var d = new Date(new Date + 3600000)
-  var locale = 'id'
-  var weeks = d.toLocaleDateString(locale, { weekday: 'long' })
-  var dates = d.toLocaleDateString(locale, {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
-  })
-  var times = d.toLocaleTimeString(locale, {
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric'
-  })
-  await m.reply('_Testing speed..._')
+        var cpuCore = cpux.count()
+        var drive = osu.drive
+        var mem = osu.mem
+        var netstat = osu.netstat
+        var HostN = osu.os.hostname()
+        var OS = osu.os.platform()
+        var cpuModel = cpux.model()
+        
+        var d = new Date(new Date + 3600000)
+        var locale = 'id'
+    var weeks = d.toLocaleDateString(locale, { weekday: 'long' })
+    var dates = d.toLocaleDateString(locale, {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    })
+        var times = d.toLocaleTimeString(locale, {
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric'
+    })
+await m.reply('_Testing speed..._')
   var txt = `*ᴘ ɪ ɴ ɢ*
 ${Math.round(neww - old)} ms
 ${speed} ms
@@ -97,27 +97,29 @@ ${muptime}
 *s ᴇ ʀ ᴠ ᴇ ʀ*
 *🛑 ʀᴀᴍ:* ${format(totalmem() - freemem())} / ${format(totalmem())}
 *🔵 ғʀᴇᴇRAM:* ${format(freemem())}
-*🔴 ᴍᴇᴍᴏʀy:* ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / ${Math.round(require('os').totalmem / 1024 / 1024)}MB
+*🔴 ᴄᴘᴜ ᴛʏᴘᴇ:* ${require('os').cpus()[0].model}
 *🔭 ᴘʟᴀᴛғᴏʀᴍ:* ${os.platform()}
 *🧿 sᴇʀᴠᴇʀ:* ${os.hostname()}
 *💻 ᴏs:* ${OS}
 *⏰ ᴛɪᴍᴇ sᴇʀᴠᴇʀ:* ${times}
 
 _NodeJS Memory Usage_
-${"```" +
-    Object.keys(used)
-      .map(
-        (key, _, arr) =>
-          `${key.padEnd(Math.max(...arr.map((v) => v.length)), " ")}: ${format(
-            used[key]
-          )}`
-      )
-      .join("\n") +
-    "```"
-    }
+${
+  "```" +
+  Object.keys(used)
+    .map(
+      (key, _, arr) =>
+        `${key.padEnd(Math.max(...arr.map((v) => v.length)), " ")}: ${format(
+          used[key]
+        )}`
+    )
+    .join("\n") +
+  "```"
+}
 
-${cpus[0]
-      ? `_Total CPU Usage_
+${
+  cpus[0]
+    ? `_Total CPU Usage_
 ${cpus[0].model.trim()} (${cpu.speed} MHZ)\n${Object.keys(cpu.times)
         .map(
           (type) =>
@@ -130,41 +132,40 @@ ${cpus[0].model.trim()} (${cpu.speed} MHZ)\n${Object.keys(cpu.times)
 
 _CPU Core(s) Usage (${cpus.length} Core CPU)_
 ${cpus
+  .map(
+    (cpu, i) =>
+      `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Object.keys(
+        cpu.times
+      )
         .map(
-          (cpu, i) =>
-            `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Object.keys(
-              cpu.times
-            )
-              .map(
-                (type) =>
-                  `- *${(type + "*").padEnd(6)}: ${(
-                    (100 * cpu.times[type]) /
-                    cpu.total
-                  ).toFixed(2)}%`
-              )
-              .join("\n")}`
+          (type) =>
+            `- *${(type + "*").padEnd(6)}: ${(
+              (100 * cpu.times[type]) /
+              cpu.total
+            ).toFixed(2)}%`
         )
-        .join("\n\n")}`
-      : ""
-    }
-`
-  conn.relayMessage(m.chat, {
-    extendedTextMessage: {
-      text: txt,
-      contextInfo: {
-        externalAdReply: {
-          title: "",
-          mediaType: 1,
-          previewType: 0,
-          renderLargerThumbnail: true,
-          thumbnailUrl: 'https://telegra.ph/file/ec8cf04e3a2890d3dce9c.jpg',
-          sourceUrl: ''
-        }
-      }, mentions: [m.sender]
-    }
-  }, {})
+        .join("\n")}`
+  )
+  .join("\n\n")}`
+    : ""
 }
-handler.help = ['ping'];
+`
+conn.relayMessage(m.chat, {
+extendedTextMessage:{
+                text: txt, 
+                contextInfo: {
+                     externalAdReply: {
+                        title: `${require('os').cpus()[0].model}`,
+                        mediaType: 1,
+                        previewType: 0,
+                        renderLargerThumbnail: true,
+                        thumbnailUrl: 'https://telegra.ph/file/ec8cf04e3a2890d3dce9c.jpg',
+                        sourceUrl: ''
+                    }
+                }, mentions: [m.sender]
+}}, {})
+}
+handler.help = ['ping', 'speed'];
 handler.tags = ['info'];
 handler.command = /^(ping|speed|pong|ingfo)$/i
 module.exports = handler;
