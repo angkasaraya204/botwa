@@ -1,4 +1,4 @@
-HAPUS NAMA FILE YANG BERTULISKAN "_copy" NYA AJA.
+HAPUS NAMA FILE YANG BERTULISKAN "(spasi)copy" NYA AJA.
 
 MAU RUN?
 1. node . --pairing --server --autocleartmp --autoread (untuk mendapatkan kode otp wa)

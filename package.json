@@ -1,7 +1,7 @@
 {
     "name": "rtxzy",
     "version": "6.3.1",
-    "description": "Lightweight WhatsApp Bot",
+    "description": "xKiwilx WhatsApp Bot",
     "depecrated": false,
     "main": "index.js",
     "directories": {
@@ -13,27 +13,14 @@
         "start": "node index.js --autocleartmp --autoread --pairing"
     },
     "keywords": [
-        "whatsapp-bot-md",
         "whatsapp-bot",
-        "whatsapp",
-        "js-whatsapp",
-        "whatsapp",
-        "Games-wabot",
-        "wabot-aq",
-        "whiskeysockets",
-        "botcahx",
-        "baileys"
+        "whatsapp"
     ],
-    "homepage": "https://github.com/BOTCAHX/RTXZY-MD",
     "author": {
         "name": "xKiwilx"
     },
     "repository": {
-        "type": "git",
-        "url": "git+https://github.com/BOTCAHX/RTXZY-MD.git"
-    },
-    "bugs": {
-        "url": "https://github.com/BOTCAHX/RTXZY-MD/issues"
+        "type": "git"
     },
     "license": "MIT",
     "dependencies": {
