@@ -1,7 +1,7 @@
 let fs = require('fs')
 let handler = m => m
 
-handler.all = async function (m, { isBlocked, conn }) {
+handler.all = async function (m, { isBlocked, conn, banned }) {
 
     if (isBlocked) return
     if (m.isBaileys) return
