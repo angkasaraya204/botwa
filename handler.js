@@ -20,7 +20,40 @@ module.exports = {
             if (!m) return
             // console.log(m)
             m.limit = false
-            try {
+            try {let user = global.db.data.users[m.sender]
+                if (typeof user !== 'object') global.db.data.users[m.sender] = {}
+                if (user) {
+                    if (!isNumber(user.limit)) user.limit = 100
+                    if (!isNumber(user.glimit)) user.glimit = 100
+                    if (!'Banneduser' in user) user.Banneduser = false
+                    if (!'BannedReason' in user) user.BannedReason = ''
+                    if (!isNumber(user.warn)) user.warn = 0
+                    if (!isNumber(user.lastSetStatus)) user.lastSetStatus = 0
+                    if (!isNumber(user.lastturu)) user.lastturu = 0
+                    if (!isNumber(user.lastseen)) user.lastseen = 0
+                    if (!isNumber(user.afk)) user.afk = -1
+                    if (!'afkReason' in user) user.afkReason = ''
+                    if (!isNumber(user.antispam)) user.antispam = 0
+                    if (!isNumber(user.antispamlastclaim)) user.antispamlastclaim = 0
+                    if (!('name' in user)) user.name = this.getName(m.sender)
+                    if (!isNumber(user.age)) user.age = -1
+                    if (!('lastIstigfar' in user)) user.lastIstigfar = true
+                } else global.db.data.users[m.sender] = {
+                    limit: 500,
+                    Banneduser: false,
+                    BannedReason: '',
+                    warn: 0,
+                    afk: -1,
+                    afkReason: '',
+                    antispam: 0,
+                    antispamlastclaim: 0,
+                    lastturu: 0,
+                    lastseen: 0,
+                    lastSetStatus: 0,
+                    name: this.getName(m.sender),
+                    age: -1,
+                    lastIstigfar: 0,
+                }
                 let chat = global.db.data.chats[m.chat]
                 if (typeof chat !== 'object') global.db.data.chats[m.chat] = {}
                 if (chat) {
@@ -54,10 +87,8 @@ module.exports = {
                 if (settings) {
                     if (!('anon' in settings)) settings.anon = true
                     if (!('anticall' in settings)) settings.anticall = true
-                    if (!('antispam' in settings)) settings.antispam = true
                     if (!('antitroli' in settings)) settings.antitroli = true
                     if (!('backup' in settings)) settings.backup = false
-                    if (!isNumber(settings.backupDB)) settings.backupDB = 0
                     if (!'groupOnly' in settings) settings.groupOnly = false
                     if (!'jadibot' in settings) settings.groupOnly = false
                     if (!isNumber(settings.status)) settings.status = 0

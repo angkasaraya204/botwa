@@ -13,14 +13,12 @@ let fs = require('fs')
 let path = require('path')
 let fetch = require('node-fetch')
 let moment = require('moment-timezone')
-let levelling = require('../lib/levelling')
 let tags = {
   'main': 'MENU UTAMA',
   'downloader': 'MENU DOWNLOADER',
   'sticker': 'MENU CONVERT',
   'advanced': 'ADVANCED',
   'ai': 'MENU AI',
-  'xp': 'MENU EXP',
   'fun': 'MENU FUN',
   'game': 'MENU GAME',
   'github': 'MENU GITHUB',
@@ -65,8 +63,7 @@ Saya adalah sistem otomatis (WhatsApp Bot) yang dapat membantu untuk melakukan s
 let handler = async (m, { conn, usedPrefix: _p }) => {
   try {
     let package = JSON.parse(await fs.promises.readFile(path.join(__dirname, '../package.json')).catch(_ => '{}'))
-    let { exp, limit, level, role } = global.db.data.users[m.sender]
-    let { min, xp, max } = levelling.xpRange(level, global.multiplier)
+    let { limit, role } = global.db.data.users[m.sender]
     let name = `@${m.sender.split`@`[0]}`
     let d = new Date(new Date + 3600000)
     let locale = 'id'
@@ -148,12 +145,8 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
       npmname: package.name,
       npmdesc: package.description,
       version: package.version,
-      exp: exp - min,
-      maxexp: xp,
-      totalexp: exp,
-      xp4levelup: max - exp,
       github: package.homepage ? package.homepage.url || package.homepage : '[unknown github url]',
-      level, limit, name, weton, week, date, dateIslamic, wib, wit, wita, time, totalreg, rtotalreg, role
+      limit, name, weton, week, date, dateIslamic, wib, wit, wita, time, totalreg, rtotalreg, role
     }
     text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
     conn.relayMessage(m.chat, {
