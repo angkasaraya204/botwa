@@ -117,6 +117,15 @@ function start(file) {
     }
   });
 
+  const Discord = require('discord.js');
+  const client = new Discord.Client();
+
+  client.on('ready', () => {
+    console.log(`Logged in as ${client.user.tag}!`);
+  });
+  
+  client.login('36d603ba74779602c33758fdd2e89110959f738c1d3e61c3d618aef906506840');
+
   console.log(`🖥️ \x1b[33m${os.type()}\x1b[0m, \x1b[33m${os.release()}\x1b[0m - \x1b[33m${os.arch()}\x1b[0m`);
   const ramInGB = os.totalmem() / (1024 * 1024 * 1024);
   console.log(`💾 \x1b[33mTotal RAM: ${ramInGB.toFixed(2)} GB\x1b[0m`);
