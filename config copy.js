@@ -16,10 +16,10 @@ global.autobio = true //set false untuk mematikan autobio
 global.maxwarn = '2' // Peringatan maksimum
 
 //INI WAJIB DI ISI!//
-global.btc = '' 
-global.lol = '' 
-global.zoner = ''
-global.resbot = ''
+global.btc = 'API key' 
+global.lol = 'API key' 
+global.zoner = 'API key'
+global.resbot = 'API key'
 
 global.APIs = {   
   btc: 'https://api.botcahx.eu.org',
@@ -30,10 +30,10 @@ global.APIs = {
 }
 
 global.APIKeys = { 
-  'https://api.botcahx.eu.org': '',
-  'https://api.lolhuman.xyz': '',
-  'https://api.zonerweb.biz.id': '',
-  'https://api2.autoresbot.com': '',
+  'https://api.botcahx.eu.org': 'API key',
+  'https://api.lolhuman.xyz': 'API key',
+  'https://api.zonerweb.biz.id': 'API key',
+  'https://api2.autoresbot.com': 'API key',
 }
 
 let fs = require('fs')
